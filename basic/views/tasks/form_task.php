@@ -11,25 +11,20 @@ $form = ActiveForm::begin([
 ]);
 ?>
 
-    <div class="container">
-        <div class="mt-2 p-3"
-             data-fcompany_id="<?= $model->id ?>">
+    <div class="container" id="main_form" data-id="<?= $model->id ?>">
+        <div class="mt-2 p-3">
             <h4><?= $this->title ?></h4>
             <form id="update_task" method="POST" action="/tasks/create">
 
             <?= $this->render('blocks/form_item', [
                 'form' => $form,
                 'model' => $model,
+                'available' => $available,
                 'statuses' => $statuses,
                 'levels' => $levels,
                 'types' => $types
             ]) ?>
 
-            <div class="form-row my-1">
-                <div class="form-group col-md-12">
-                    <input type="submit" class="btn btn-lg btn-primary mt-2" value="Сохранить">
-                </div>
-            </div>
         </div>
     </div>
     <br><br>

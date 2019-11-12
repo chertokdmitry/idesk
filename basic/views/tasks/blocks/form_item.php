@@ -1,6 +1,6 @@
 <?php
 
-if (Yii::$app->user->identity->id == $model['manager_id']) {
+if ($available) {
   $readonly = false;
   $dropdown = [];
 } else {
@@ -32,3 +32,11 @@ echo '<div class="form-row my-1"><div class="form-group col-md-12">';
 echo $form->field($model, 'level_id')->dropdownList($levels, $dropdown)->label('Приоритет');
 echo '</div></div>';
 echo $form->field($model, 'id')->hiddenInput(['value'=> $model->id])->label(false);
+
+if ($available) {
+    echo '<div class="form-row my-1">
+                <div class="form-group col-md-12">
+                    <input type="submit" class="btn btn-lg btn-primary mt-2" value="Сохранить">
+                </div>
+            </div>';
+}

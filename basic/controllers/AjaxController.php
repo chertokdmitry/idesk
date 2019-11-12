@@ -84,6 +84,17 @@ class AjaxController extends Controller {
         $data = array('total_time' => $timeTracks->total_time, 'task_id' => $taskId);
 
         return json_encode($data);
+    }
+
+    public function actionMakeAvailable()
+    {
+        $taskId = \Yii::$app->request->post('task_id');
+
+        $task = Task::find()->where(['id' => $taskId])->one();
+        $task->available = 1;
+        $task->save();
+
+        return true;
 
     }
 

@@ -15,7 +15,8 @@ class Comment extends ActiveRecord
     public function rules()
     {
         return [
-            [['body', 'task_id'], 'safe'],
+            [['body'], 'required'],
+            [['task_id'], 'safe'],
         ];
     }
 }

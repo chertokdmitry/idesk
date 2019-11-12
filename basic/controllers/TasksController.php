@@ -37,6 +37,16 @@ class TasksController extends Controller
 
         if ($id) {
             $model = Task::find()->where(['id' => $id])->with(['client', 'comments'])->one();
+
+            if ($model->available) {
+                $model->available = false;
+                $model->save();
+
+                $available = true;
+            } else {
+                $available = false;
+            }
+
             $comment = new Comment();
             $statuses = Status::getList();
             $types = Type::getList();
@@ -47,7 +57,8 @@ class TasksController extends Controller
                 'comment' => $comment,
                 'statuses' => $statuses,
                 'types' => $types,
-                'levels' => $levels
+                'levels' => $levels,
+                'available' => $available
             ]);
         }
     }

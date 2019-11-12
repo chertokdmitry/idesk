@@ -15,9 +15,28 @@ $(document).ready(function() {
                 $('#main_form').replaceWith(data);
             }
         });
-
-
     });
+
+    $("#main_form").ready(function(){
+
+        window.onbeforeunload = function() {
+            let element = $('#main_form');
+            taskId = element.attr('data-id');
+            console.log(taskId);
+
+            $.ajax({
+                type: 'POST',
+                url: '/ajax/make-available',
+                data: {
+                    task_id: taskId
+                },
+                success: function (data) {
+                    console.log(data)
+                }
+            })
+        }
+    });
+
 
     $('body')
         .on('click', '.manager-add', function (e) {
@@ -87,92 +106,4 @@ $(document).ready(function() {
                 }
             })
         })
-
-    // $('#okpd-menu').ready(function() {
-    //
-    //     let me = $('#first'),
-    //         code = me.attr('data-code'),
-    //         id = me.attr('data-id'),
-    //         level = me.attr('data-level'),
-    //         search = me.attr('data-search');
-    //
-    //     $.ajax({
-    //         type: 'POST',
-    //         url: '/admin/okpd/ajax-products',
-    //         data: {
-    //             code: code,
-    //             id: id,
-    //             level: level,
-    //             search: search,
-    //         },
-    //         success: function (data) {
-    //             $(id).replaceWith(data);
-    //         }
-    //     });
-    // });
-    //
-    // $('body')
-    //     .on('click', '.okpd-add', function (e) {
-    //         let me = $(this),
-    //             code = me.attr('data-code'),
-    //             okpd_key = $('#okpd_key').val()
-    //         $.ajax({
-    //             type: 'POST',
-    //             url: '/admin/okpd/add-okpd-project',
-    //             data: {
-    //                 code: code
-    //             },
-    //             success: function (data) {
-    //                 $('#message').replaceWith(data);
-    //             }
-    //         })
-    //
-    //         localStorage.setItem(okpd_key, code)
-    //     })
-    //     .on('click', '.okpd-menu', function (e) {
-    //
-    //         $('.okpd-menu').removeClass('bg-warning');
-    //         $(this).addClass('bg-warning');
-    //     })
-    //     .on('click', '.okpd-nav', function (e) {
-    //         let me = $(this),
-    //             code = me.attr('data-code'),
-    //             id = me.attr('data-id'),
-    //             level = me.attr('data-level'),
-    //             search = me.attr('data-search');
-    //
-    //         $.ajax({
-    //             type: 'POST',
-    //             url: '/admin/okpd/ajax-products',
-    //             data: {
-    //                 code: code,
-    //                 id: id,
-    //                 level: level,
-    //                 search: search,
-    //             },
-    //             success: function (data) {
-    //                 $(id).replaceWith(data);
-    //             }
-    //         });
-    //     })
-    //     .on('click', '.okpd-nav2', function (e) {
-    //         let me = $(this),
-    //             code = me.attr('data-code'),
-    //             id = me.attr('data-id'),
-    //             level = me.attr('data-level'),
-    //             search = me.attr('data-search');
-    //         $.ajax({
-    //             type: 'POST',
-    //             url: '/admin/okpd/ajax-products-main',
-    //             data: {
-    //                 code: code,
-    //                 id: id,
-    //                 level: level,
-    //                 search: search,
-    //             },
-    //             success: function (data) {
-    //                 $(id).replaceWith(data);
-    //             }
-    //         });
-    //     });
 });
